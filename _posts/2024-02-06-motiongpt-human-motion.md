@@ -1,4 +1,4 @@
-c---
+---
 title: MotionGPT
 author: DaEun Cheong
 date: 2024-02-06 17:30:00 +0900
@@ -105,5 +105,5 @@ raw motion data → discrete motion tokens 를 위해
         3. commitment loss : 
         4. L1 smooth loss 
         5. velocity regularization
-        
+
 
