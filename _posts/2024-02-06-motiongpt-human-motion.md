@@ -1,6 +1,6 @@
 ---
 title: MotionGPT
-author: DaEun Cheong
+author: daeun
 date: 2024-02-06 17:30:00 +0900
 categories: [Blog, PaperReview]
 tags: [paper review]
