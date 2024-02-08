@@ -91,19 +91,60 @@ raw motion data → discrete motion tokens 를 위해
         4. quantization process Q() 는 각 row vector b 를 가장 가까운 codebook entry 로 전환시킨다. 
 
             <center>
-            <img height = 50, src = "motiongpt1.png">
+                <img height = 50, src = "motiongpt1.png">
             </center>
 
     - decoder 
         : motion token 을 motion sequence 로 reconstruct 
             - 양자화를 거친 후, 다시 motion space 로의 reprojection 을 수행한다. 
 
-    - loss :
-
+    - loss
+        
         1. reconstruction loss : 
-        2. embedding loss : 
-        3. commitment loss : 
-        4. L1 smooth loss 
-        5. velocity regularization
+            1. L1 smooth loss 
+            2. velocity regularization
+            : EMA (exponential moving average)
+            아래 도표에서 파란색으로 표시된 선들이 EMA를 적용한 그래프이다. 
+            <center>
+            <img height = 100, src = "motiongpt2.png">
+            <br>          
+            <img height = 150, src = "motiongpt3.png">
+            </center>
+
+        2. embedding loss 
+        3. commitment loss  
 
 
+#### 2. Motion-aware Language model
+
+motion tokenizer 이 있으면, 이를 motion token sequnce z 로 mapping 할 수 있다. 같은 representation 을 가진 것들을 비슷한 vocablary로 합치기 위해서 VQ-VAE를 사용해 유사한 것들 끼리 하나의 token 으로 mapping 되게 하였다.  
+
+codebook은 이미 있으니 z로 표현된 모션 토큰 sequence를 다시 index sequence 로 변환한다. 또, previous language model 은 T5 와 같이 text를 WordPiece token 으로 변환해주는데, T5 는 이러한 점을 살려 K_t 개의 vocabulary 와 sentence piece 이 혼합된 데이터셋을 사용했다. 
+
+> T5 설명 
+> T5 에 대해 간략하게 설명하자면 모든 text 기반 downstream task 를 text-to-text 로 해결하자는 것인데, Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer 라는 논문에서 소개된 모델이다. (*T5 인 이유는 Text-to-Text Transformer 의 T가 5개여서 그런 것 같다.*)  
+>
+> 이 모델의 특징은 original transformer 에서 큰 변화를 주지 않은 모습을 취하고, BERT 나 GPT는 둘중 하나만 사용함. <span style="font-size:75%"> original transformer는 주기 함수인 sin, cos 함수를 이용하여 위치 정보를 추가하였지만, 최근에는 이러한 fixed position embedding 대신 relative position embedding을 많이 사용하는 추세.</span>  
+>
+> input 으로 context 나 conditioning 역할을 하는 text를 받고, 그에 맞는 output text 를 생성한다. pretraining 과 finetuning 단계에서 일관된 training objective 를 제공하는데, task 가 무엇이든지 Maximum likelihood objective 로 학습한다. 
+
+
+
+
+<center>
+    <img height = 75, src = "motiongpt4.png">
+</center>
+
+
+
+
+
+
+
+
+
+
+
+참고 문헌 
+1. [논문 리뷰] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer, 길바닥 AI, https://gbdai.tistory.com/62
+2. 
