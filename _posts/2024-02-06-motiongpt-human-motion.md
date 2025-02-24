@@ -44,7 +44,7 @@ render_with_liquid: false
     → comprehensive understanding 이 부족했다. 
 
 
-</br>
+<br>
 
 저자들은 다음과 같은 두가지 문제를 main problem 이라고 생각하고, 해결하고자 했다. 
 
@@ -56,7 +56,7 @@ render_with_liquid: false
 2. 다른 task 에 사용할 수 있는 단일 multi-task frame work 구성 
 
 
-</br>
+<br>
 
 해당 논문에서는 단일화된 모션-언어 프레임워크인 MotionGPT 를 제안하고 있다. 
 
